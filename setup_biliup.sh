@@ -7,6 +7,8 @@ apt install nginx
 apt install python3-venv
 apt-get install gnupg
 apt install wget
+timedatectl set-timezone Asia/Shanghai
+systemctl restart systemd-timesyncd
 wget https://raw.githubusercontent.com/boxie123/Cloud/main/biliup_backup.tar.gz.gpg
 gpg biliup_backup.tar.gz.gpg
 tar -xzvf biliup_backup.tar.gz
@@ -20,9 +22,5 @@ cp /etc/vsftpd.conf /etc/vsftpd.conf.bak
 cp vsftpd.conf /etc/vsftpd.conf
 /etc/init.d/vsftpd restart
 cd ../biliup
-python3 -m venv .venv
-source ./.venv/bin/activate
-pip3 install ./biliup-0.4.31.tar.gz
-biliup start
-chmod +x BiliupAutoRestart
-nohup ./BiliupAutoRestart >> AutoRestart.log 2>&1 &
+chmod +x start_biliup.sh
+./start_biliup.sh
